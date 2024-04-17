@@ -13,8 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\PrincipalController::class, 'principal']);
+// INDEX
+Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('site.index');
+Route::get('/redirect', [App\Http\Controllers\IndexController::class, 'redirect'])->name('site.redirect');
 
-Route::get('/contato', [App\Http\Controllers\ContatoController::class, 'contato']);
+// ACCOUNT
+Route::get('/register', [App\Http\Controllers\AccountController::class, 'register'])->name('site.register');
+Route::get('/recover', [App\Http\Controllers\AccountController::class, 'recover'])->name('site.recover');
+Route::get('/login', [App\Http\Controllers\AccountController::class, 'login'])->name('site.login');
+Route::get('/logout', [App\Http\Controllers\AccountController::class, 'logout'])->name('site.logout');
 
-Route::get('/sobre-nos', [App\Http\Controllers\SobreNosController::class, 'sobreNos']);
+
+
+// APP
+Route::prefix('/app')->group(function () {
+    // LINK
+    Route::get('/generate', [App\Http\Controllers\LinkController::class, 'generate'])->name('app.generate');
+    Route::get('/remove', [App\Http\Controllers\LinkController::class, 'remove'])->name('app.remove');
+    Route::get('/list', [App\Http\Controllers\LinkController::class, 'list'])->name('site.list');
+});
